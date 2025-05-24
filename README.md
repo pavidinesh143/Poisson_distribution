@@ -1,3 +1,5 @@
+PAVITHRA S
+212223220072
 # Fitting Poisson  distribution
 # Aim : 
 
@@ -29,13 +31,39 @@ The Poisson distribution is the discrete probability distribution of the number 
 ![image](https://user-images.githubusercontent.com/103921593/230282876-f4a5afbf-cac1-4648-a1b0-c78840638a8e.png)
 
 # Program :
+Developed By: PAVITHRA S
+Reg No:212223220072
+ import numpy as np
+import math
+import scipy.stats
 
- 
+L = list(map(int, input().split()))
+N, M = len(L), max(L)
+
+f = [L.count(i) for i in range(M+1)]
+sf = sum(f)
+p = [f[i] / sf for i in range(M+1)]
+mean = np.inner(range(M+1), p)
+
+print("X P(X=x) Obs.Fr Exp.Fr xi")
+print("--------------------------")
+
+cal_chi2_sq = 0
+for x in range(M+1):
+    exp_fr = math.exp(-mean) * mean**x / math.factorial(x)
+    E = exp_fr * sf
+    xi = ((f[x] - E) ** 2) / E
+    cal_chi2_sq += xi
+    print(f"{x:2.2f} {exp_fr:2.3f} {f[x]:4.2f} {E:3.2f} {xi:3.2f}")
+
+print("--------------------------")
+table_chi2 = scipy.stats.chi2.ppf(1 - 0.01, df=M)
+print(f"Calculated value of Chi square is {cal_chi2_sq:4.2f}")
+print(f"Table value of chi square at 1% level is {table_chi2:4.2f}")
+print("The given data can be fitted in Poisson Distribution at 1% LOS" if cal_chi2_sq < table_chi2 else "The given data cannot be fitted in Poisson Distribution at 1% LOS")
 
 # Output : 
-
-
-
+![441522799-71733632-bba5-4df9-aa2c-c6a50b04e39c](https://github.com/user-attachments/assets/ae08da10-2d9e-425b-a0c0-413130d9bd7c)
 # Results
 
 The Poisson distribution is fitted for the objects arrived from feeder per minute and the data is tested using Chi-square test. 
